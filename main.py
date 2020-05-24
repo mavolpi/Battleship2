@@ -2,9 +2,14 @@ from random import randint
 
 board = []
 
-extra_guesses_allowed = 4
-
 ship_number = int(raw_input("Number of Battleships: "))
+
+print " "
+print "You will have the same number of guesses as ships, plus a number of extras. "
+print " "
+
+
+extra_guesses_allowed = int(raw_input("Number of Extra Guesses Allowed: "))
 
 total_ships_alive = ship_number
 
@@ -83,11 +88,11 @@ for turn in range(extra_guesses_allowed + ship_number):
 
   for i,(ship_row, ship_col, life_status) in enumerate(ship_list):
 
-    print ship_list
+    #print ship_list
 
     if guess_row == ship_row and guess_col == ship_col and life_status == 1:
       ship_list[i] = (ship_row, ship_col, 0)
-      board[guess_row][guess_col] = "Q"
+      board[guess_row][guess_col] = "Z"
 
       total_ships_alive = total_ships_alive - 1
 
@@ -103,16 +108,15 @@ for turn in range(extra_guesses_allowed + ship_number):
     print " "
     board[guess_row][guess_col] = "X"
 
-  
+  if turn == (extra_guesses_allowed + ship_number-1):
+    print "You are out of turns."
+    print "Game Over."
+    print " "
+    break
 
-  if turn == ship_number:
-        print "Game Over"
 
-  print "Total Ships Alive %s" % total_ships_alive
+  #print "Total Ships Alive %s" % total_ships_alive
 
-
-  #if total_ship_alive == 0:
-    #print "You win."
-    #break
 
   print_board(board)
+  print " "
