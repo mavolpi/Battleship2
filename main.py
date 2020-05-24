@@ -25,12 +25,12 @@ def random_row(board):
 def random_col(board):
   return randint(0, len(board[0]) - 1)
 
-#def dup_ship_loc(ship_row, ship_col):
-  #for i in tot_ships:
-    #if ship_list[i] == (ship_row, ship_col):
-      #ship_row = random_row(board)
-      #ship_col = random_col(board)
-      #return(ship_row, ship_col)
+def dup_ship_loc(ship_row, ship_col, tot_ships):
+  for i in tot_ships:
+    if ship_list[i] == (ship_row, ship_col):
+      ship_row = random_row(board)
+      ship_col = random_col(board)
+      return(ship_row, ship_col)
 
     #else:
       #ship_list.append((ship_row, ship_col, 1))
@@ -40,11 +40,7 @@ for tot_ships in range(ship_number):
   ship_row = random_row(board)
   ship_col = random_col(board)
 
-  #dup_ship_loc(ship_row, ship_col)
-  for i in tot_ships:
-    if ship_list[i] == (ship_row, ship_col):
-      ship_row = random_row(board)
-      ship_col = random_col(board)
+  dup_ship_loc(ship_row, ship_col, tot_ships)
 
   print ship_row + 1
   print ship_col + 1
