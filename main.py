@@ -22,7 +22,9 @@ def print_board(board):
   for row in board:
     print " ".join(row)
 
+print " "
 print_board(board)
+print " " 
 
 def random_row(board):
   return randint(0, len(board) - 1)
@@ -39,6 +41,9 @@ def dup_ship_loc(ship_row, ship_col, tot_ships, dup_ship):
     else:
       return dup_ship == 0
 
+print "Solution Key:"
+print " "
+
 for tot_ships in range(ship_number):
 
   dup_ship = 0
@@ -53,14 +58,11 @@ for tot_ships in range(ship_number):
     ship_col = random_col(board)
     dup_ship_loc(ship_row, ship_col, tot_ships)
 
-
-  print ship_row + 1
-  print ship_col + 1
+  print (ship_row + 1, ship_col + 1)
   print " "
   
   ship_list.append((ship_row, ship_col, 1))
-  print ship_list
-  print " "
+  #print ship_list
 
 #Guess checking Loop
 
