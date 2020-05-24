@@ -2,13 +2,13 @@ from random import randint
 
 board = []
 
+extra_guesses_allowed = 4
+
 ship_number = int(raw_input("Number of Battleships: "))
 
 total_ships_alive = ship_number
 
 ship_list = []
-
-life_status = 0
 
 for x in range(0, 5):
   board.append(["O"] * 5)
@@ -25,22 +25,29 @@ def random_row(board):
 def random_col(board):
   return randint(0, len(board[0]) - 1)
 
-def dup_ship_loc(ship_row, ship_col, tot_ships):
-  for i in tot_ships:
-    if ship_list[i] == (ship_row, ship_col):
-      ship_row = random_row(board)
-      ship_col = random_col(board)
-      return(ship_row, ship_col)
+def dup_ship_loc(ship_row, ship_col, tot_ships, dup_ship):
 
-    #else:
-      #ship_list.append((ship_row, ship_col, 1))
+  for i in range(tot_ships):
+    if ship_list[i] == (ship_row, ship_col):
+      return dup_ship == 1
+
+    else:
+      return dup_ship == 0
 
 for tot_ships in range(ship_number):
-  
+
+  dup_ship = 0
+
   ship_row = random_row(board)
   ship_col = random_col(board)
 
-  dup_ship_loc(ship_row, ship_col, tot_ships)
+  dup_ship_loc(ship_row, ship_col, tot_ships, dup_ship)
+
+  while dup_ship == 1:
+    ship_row = random_row(board)
+    ship_col = random_col(board)
+    dup_ship_loc(ship_row, ship_col, tot_ships)
+
 
   print ship_row + 1
   print ship_col + 1
@@ -52,7 +59,7 @@ for tot_ships in range(ship_number):
 
 #Guess checking Loop
 
-for turn in range(1 + ship_number):
+for turn in range(extra_guesses_allowed + ship_number):
   
   if total_ships_alive == 0:
     print "You Win."
@@ -85,6 +92,7 @@ for turn in range(1 + ship_number):
       total_ships_alive = total_ships_alive - 1
 
       print "Congratulations! You sunk a battleship!"
+      print " "
       print "Total Ships Alive %s" % total_ships_alive
       print " "
       break
