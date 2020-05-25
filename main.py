@@ -22,9 +22,7 @@ def print_board(board):
   for row in board:
     print " ".join(row)
 
-print " "
 print_board(board)
-print " " 
 
 def random_row(board):
   return randint(0, len(board) - 1)
@@ -32,38 +30,22 @@ def random_row(board):
 def random_col(board):
   return randint(0, len(board[0]) - 1)
 
-def dup_ship_loc(ship_row, ship_col, tot_ships, dup_ship):
+def dup_ship_loc(ship_row, ship_col, ship_list):
+  for i in range(len(ship_list)):
+    if ship_list[i] == (ship_row, ship_col, 1):
+      return True
+    return False
 
-  for i in range(tot_ships):
-    if ship_list[i] == (ship_row, ship_col):
-      return dup_ship == 1
-
-    else:
-      return dup_ship == 0
-
-print "Solution Key:"
-print " "
-
-for tot_ships in range(ship_number):
-
-  dup_ship = 0
-
+while len(ship_list) < ship_number:
   ship_row = random_row(board)
   ship_col = random_col(board)
+  if not dup_ship_loc(ship_row, ship_col, ship_list):
+    ship_list.append((ship_row, ship_col, 1))
 
-  dup_ship_loc(ship_row, ship_col, tot_ships, dup_ship)
-
-  while dup_ship == 1:
-    ship_row = random_row(board)
-    ship_col = random_col(board)
-    dup_ship_loc(ship_row, ship_col, tot_ships)
-
+  print " "
   print (ship_row + 1, ship_col + 1)
   print " "
   
-  ship_list.append((ship_row, ship_col, 1))
-  #print ship_list
-
 #Guess checking Loop
 
 for turn in range(extra_guesses_allowed + ship_number):
